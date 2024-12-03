@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <title>Listado de Usuarios</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="h3">Listado de Egresados</h1>
+            <div class="text-end mt-4">
+                <button id="logout" class="btn btn-danger btn-lg">Cerrar Sesión</button>
+            </div>
+            <div class="input-group" style="max-width: 400px;">
+                <input type="text" id="searchInput" class="form-control" placeholder="Buscar por matrícula, nombre o apellido">
+                <button class="btn btn-primary" onclick="searchUser()">Buscar</button>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover" border="1" id="userTable">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Matrícula</th>
+                        <th>Apellido Paterno</th>
+                        <th>Apellido Materno</th>
+                        <th>Nombres</th>
+                        <th>CURP</th>
+                        <th>Género</th>
+                        <th>Nacionalidad</th>
+                        <th>Teléfono</th>
+                        <th>Fecha de Nacimiento</th>
+                        <th>Lugar de Origen</th>
+                        <th>Dirección Actual</th>
+                        <th>Imagen</th>
+                        <th>CV</th>
+                        <th>Habilitado</th>
+                        <th>Primer Empleo</th>
+                        <th>Bandera Encuesta</th>
+                        <th>Generación</th>
+                        <th>Promedio</th>
+                        <th>Fecha de Inicio</th>
+                        <th>Fecha de Fin</th>
+                        <th>Forma de Titulación</th>
+                        <th>Fecha de Titulación</th>
+                        <th>Última Modificación</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-center my-4">
+                <button onclick="loadUsers(currentPage - 1, 10)" class="btn btn-primary mx-2" id="prevButton" disabled>Anterior</button>
+                <span id="pageNumber" class="mx-2">Página 1</span> <!-- Este es el nuevo elemento -->
+                <button onclick="loadUsers(currentPage + 1, 10)" class="btn btn-secondary mx-2" id="nextButton">Siguiente</button>
+            </div>
+            
+        </div>
+    
+    </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+
+    
+</body>
+<script>
+let currentPage = 1;  // Página inicial
+let perPage = 10;     // Número de elementos por página
+
+// Función para cargar los usuarios
+function loadUsers(page, perPage) {
+    // Prevenir que la página sea menor a 1
+    if (page < 1) page = 1;
+    currentPage = page;  // Establecer la página actual
+
+    // Hacer la solicitud con los parámetros de paginación
+    fetch(`/reales?page=${page}&per_page=${perPage}`)
+        .then(response => response.json())
+        .then(data => {
+            populateTable(data);
+            updatePaginationControls(page, data);  // Actualizar controles de paginación
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Hubo un error al cargar los usuarios: ' + error.message);
+        });
+}
+
+// Llamar a la función para cargar los usuarios cuando la página se carga
+document.addEventListener('DOMContentLoaded', function () {
+    loadUsers(currentPage, perPage);  // Llamar a loadUsers con valores iniciales
+});
+
+// Función para cambiar de página
+function loadPage(page) {
+    if (page < 1) return;  // No permitir página menor a 1
+    loadUsers(page, perPage);  // Llamar a loadUsers con la nueva página
+}
+
+// Función para actualizar los controles de paginación
+function updatePaginationControls(page, data) {
+    // Verificar que los botones existan antes de intentar modificarlos
+    const prevButton = document.getElementById('prevButton');
+    const nextButton = document.getElementById('nextButton');
+
+    if (prevButton && nextButton) {
+        // Actualizar el texto de la página
+        document.getElementById('pageNumber').innerText = `Página ${page}`;
+
+        // Actualizar los botones de paginación
+        prevButton.disabled = page <= 1;  // Desactivar botón "Anterior" en la primera página
+        nextButton.disabled = data.length < perPage;  // Desactivar "Siguiente" si hay menos resultados que el límite
+    } else {
+        console.error('Los botones de paginación no se encontraron.');
+    }
+}
+
+// Función para llenar la tabla
+function populateTable(data) {
+    const userTableBody = document.querySelector('#userTable tbody');
+    userTableBody.innerHTML = ''; // Limpiar la tabla
+
+    data.forEach(user => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${user.matricula}</td>
+            <td>${user.ap_paterno}</td>
+            <td>${user.ap_materno}</td>
+            <td>${user.nombres}</td>
+            <td>${user.curp}</td>
+            <td>${user.genero}</td>
+            <td>${user.nacionalidad}</td>
+            <td>${user.telefono}</td>
+            <td>${user.fecha_nacimiento || 'N/A'}</td>
+            <td>${user.lugar_origen || 'N/A'}</td>
+            <td>${user.direccion_actual || 'N/A'}</td>
+            <td>${user.imagen_url ? `<a href="${user.imagen_url}" target="_blank">Ver Imagen</a>` : 'N/A'}</td>
+            <td>${user.cv_url ? `<a href="${user.cv_url}" target="_blank">Ver CV</a>` : 'N/A'}</td>
+            <td>${user.habilitado === 1 ? 'Sí' : 'No'}</td>
+            <td>${user.primer_empleo || 'N/A'}</td>
+            <td>${user.banderaEnc || 'N/A'}</td>
+            <td>${user.generacion || 'N/A'}</td>
+            <td>${user.promedio || 'N/A'}</td>
+            <td>${user.fecha_inicio || 'N/A'}</td>
+            <td>${user.fecha_fin || 'N/A'}</td>
+            <td>${user.forma_titulacion || 'N/A'}</td>
+            <td>${user.fecha_titulo || 'N/A'}</td>
+            <td>${user.updated_at || 'N/A'}</td>
+            <td>
+                <button onclick="editUser('${user.matricula}')">Editar</button>
+            </td>
+        `;
+        userTableBody.appendChild(row);
+    });
+}
+
+// Función para editar un usuario
+function editUser(matricula) {
+    // Redirigir a la página de actualización pasando la matrícula como parámetro en la URL
+    window.location.href = `/actualizar?matricula=${matricula}`;
+}
+
+// Función de logout
+function logout() {
+    // Eliminar el token del almacenamiento
+    sessionStorage.removeItem('userToken');
+    // Redirigir al usuario a la página de login
+    window.location.href = "/login";
+}
+
+function searchUser() {
+            const searchValue = document.getElementById('searchInput').value.trim();
+        
+            if (!searchValue) {
+                alert("Por favor ingresa un valor para buscar.");
+                return;
+            }
+        
+            // Limpiar la tabla antes de realizar una nueva búsqueda
+            const userTableBody = document.getElementById('userTable').getElementsByTagName('tbody')[0];
+            userTableBody.innerHTML = '';
+        
+            // Crear parámetros de búsqueda dinámicos
+            let queryParams = new URLSearchParams();
+        
+            // Lógica para identificar si el valor es matrícula, nombre o apellido
+            if (searchValue.match(/^\d+$/)) {  // Si es solo números, tratamos como matrícula
+                queryParams.append('matricula', searchValue);
+            } else if (searchValue.match(/^[a-zA-Z]+$/)) {  // Si solo contiene letras, es un nombre o apellido
+                if (searchValue.split(' ').length > 1) {  // Si tiene más de una palabra, lo consideramos como nombre
+                    queryParams.append('nombres', searchValue);
+                } else {  // Si es una sola palabra, lo consideramos como apellido paterno
+                    queryParams.append('ap_paterno', searchValue);
+                }
+            } else {
+                alert("El valor ingresado no es válido para una búsqueda.");
+                return;
+            }
+        
+            // Realizamos la búsqueda con los parámetros adecuados
+            fetch(`/reales/buscar?${queryParams.toString()}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Usuario no encontrado");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.length > 0) {
+                        populateTable(data);  // Función para actualizar la tabla con los resultados
+                    } else {
+                        alert("No se encontraron resultados.");
+                        loadUsers();  // Recargar la lista completa si no hay resultados
+                    }
+                })
+                .catch(error => {
+                    console.error("Error al buscar usuario:", error);
+                    alert("Error al buscar usuario: " + error.message);
+                    loadUsers();  // Recargar la lista completa en caso de error
+                });
+        }
+        
+
+// Llamar a la función cuando el usuario haga clic en el botón de logout
+document.getElementById('logout').addEventListener('click', logout);
+
+</script>
+</html>
