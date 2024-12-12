@@ -174,9 +174,9 @@
             <div class="mb-3 form-outline">
                 <label class="form-label" for="forma_titulacion">Forma de Titulación</label>
                 <select id="forma_titulacion" name="forma_titulacion" class="form-select" required>
-                    <option value="1">Tesis</option>
-                    <option value="2">CENEVAL</option>
-                    <option value="3">No titulado</option>
+                    <option value="Tesis">Tesis</option>
+                    <option value="CENEVAL">CENEVAL</option>
+                    <option value="No titulado">No titulado</option>
                 </select>
             </div>
             
@@ -270,7 +270,23 @@
 
             // Convertir FormData a JSON
             formData.forEach((value, key) => {
-                jsonObject[key] = value;
+                if (key === "forma_titulacion") {
+                switch (value) {
+                    case "Tesis":
+                        jsonObject[key] = 1;
+                        break;
+                    case "CENEVAL":
+                        jsonObject[key] = 2;
+                        break;
+                    case "No titulado":
+                        jsonObject[key] = 3;
+                        break;
+                    default:
+                        jsonObject[key] = value; // En caso de que se agregue una nueva opción
+                }
+        } else {
+            jsonObject[key] = value;
+        }
             });
 
             // Hacer el request PUT al backend

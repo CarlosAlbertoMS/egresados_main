@@ -6,6 +6,8 @@ from schemas.user import User
 from fastapi.responses import JSONResponse
 from fastapi import Query
 from starlette.status import HTTP_200_OK, HTTP_500_INTERNAL_SERVER_ERROR
+from datetime import datetime
+
 
 usuarios_real = APIRouter()
 
@@ -127,7 +129,7 @@ def update_egresado(matricula: str, user: User):
         "primer_empleo_id": user.primer_empleo_id,
         "banderaEnc": user.banderaEnc,
         "created_at": user.created_at,
-        "updated_at": user.updated_at
+        "updated_at": datetime.now()
     }
 
     # Ejecutar el UPDATE en la tabla "egresado" por la matrícula
