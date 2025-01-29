@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Usuario</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Registro de Usuario</h2>
+        <form id="registerForm" method="POST" action="/usuarios">
+            <div class="mb-3">
+                <label for="correo" class="form-label">Correo electrónico</label>
+                <input type="email" class="form-control" id="correo" name="correo" placeholder="Ingresa tu correo" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Ingresa tu contraseña" required>
+            </div>
+            <div class="mb-3">
+                <label for="matricula" class="form-label">Matrícula</label>
+                <input type="text" class="form-control" id="matricula" name="matricula" placeholder="Ingresa tu matrícula" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Registrar</button>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS (Opcional, solo si necesitas JS de Bootstrap) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+<script>
+           document.addEventListener("DOMContentLoaded", function () {
+        const userToken = sessionStorage.getItem('userToken');
+
+        if (!userToken) {
+            // Si no hay token, redirigir al login
+            window.location.href = "/login";
+        }
+    });
+    document.getElementById("registerForm").addEventListener("submit", async function (event) {
+    event.preventDefault(); // Evita el envío tradicional del formulario
+    const formData = {
+        correo: document.getElementById("correo").value,
+        password: document.getElementById("password").value,
+        egresado_matricula: document.getElementById("matricula").value
+    };
+
+    try {
+        const response = await fetch("/usuarios", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+            alert("Usuario registrado exitosamente");
+            console.log(data);
+        } else {
+            alert(`Error: ${data.detail}`);
+        }
+    } catch (error) {
+        console.error("Error al enviar los datos:", error);
+        alert("Hubo un problema al procesar tu solicitud.");
+    }
+});
+
+</script>
+</html>

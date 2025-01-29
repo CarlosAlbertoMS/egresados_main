@@ -10,6 +10,7 @@ from jose import JWTError, jwt
 from cryptography.fernet import Fernet
 from starlette.status import HTTP_200_OK, HTTP_500_INTERNAL_SERVER_ERROR
 from datetime import datetime, timedelta
+import bcrypt
 
 
 user = APIRouter()
@@ -22,15 +23,25 @@ def get_password_resets():
     return conn.execute(users.select()).mappings().fetchall()
 
 @user.post("/usuarios")
-def create_password_resets(usuarios:Users):
-    nuevo_usuario = { "correo":usuarios.correo, "password": bcrypt.hash(usuarios.password), "egresado_matricula":usuarios.egresado_matricula}
+def create_password_resets(usuarios: Users):
+    # Encriptar la contraseña
+    salt = bcrypt.gensalt()  # Genera el salt automáticamente
+    hashed_password = bcrypt.hashpw(usuarios.password.encode('utf-8'), salt)
+    
+    nuevo_usuario = {
+        "correo": usuarios.correo,
+        "password": hashed_password.decode('utf-8'),  # Almacenar como cadena, no bytes
+        "egresado_matricula": usuarios.egresado_matricula
+    }
     try:
+        # Insertar el usuario en la base de datos
         conn.execute(users.insert().values(nuevo_usuario))
         conn.commit()
     except Exception as e:
-     raise HTTPException(status_code=500, detail=f"Error al insertar: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Error al insertar: {str(e)}")
 
-    return JSONResponse(content=nuevo_usuario,status_code= HTTP_200_OK)
+    return JSONResponse(content=nuevo_usuario, status_code=200)
+
 
 @user.put("/usuarios/{id}")
 def update_usuario(id: int, usuarios: Users):
@@ -75,8 +86,16 @@ def create_access_token(data: dict, expires_delta: timedelta = None):
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
+from fastapi import HTTPException, Request
+from fastapi.responses import JSONResponse
+from sqlalchemy import select
+import bcrypt
+from datetime import timedelta
+
+ACCESS_TOKEN_EXPIRE_MINUTES = 30  # Define la duración del token (puedes ajustarlo)
+
 @user.post("/login")
-def login(data: Login, request:Request):
+def login(data: Login, request: Request):
     try:
         # Buscar al usuario por correo
         query = select(users).where(users.c.correo == data.correo)
@@ -85,11 +104,15 @@ def login(data: Login, request:Request):
         if not result:
             raise HTTPException(status_code=401, detail="Correo o contraseña incorrectos")
 
-        # Verificar la contraseña directamente (sin encriptación)
-        if data.password != result["password"]:
+        # Verificar la contraseña usando bcrypt
+        if not bcrypt.checkpw(data.password.encode("utf-8"), result["password"].encode("utf-8")):
             raise HTTPException(status_code=401, detail="Correo o contraseña incorrectos")
-        
-        token = create_access_token(data={"sub": result["correo"]}, expires_delta=timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES))
+
+        # Crear el token de acceso (ajusta esta función según tu implementación)
+        token = create_access_token(
+            data={"sub": result["correo"]}, 
+            expires_delta=timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+        )
 
         # Responder con éxito
         return JSONResponse(

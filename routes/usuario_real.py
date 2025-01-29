@@ -1,29 +1,45 @@
 from fastapi import APIRouter, Response, HTTPException, logger
 from config.db import conn
-from sqlalchemy import select
+from sqlalchemy import and_, select
 from models.usuario_real import egresado, preparacion
 from schemas.user import User
 from fastapi.responses import JSONResponse
 from fastapi import Query
 from starlette.status import HTTP_200_OK, HTTP_500_INTERNAL_SERVER_ERROR
 from datetime import datetime
+from math import ceil
 
 
 usuarios_real = APIRouter()
 
+from sqlalchemy import func
+
 @usuarios_real.get("/reales")
 def get_usuarios(page: int = 1, per_page: int = 10):
-    # Calcular el desplazamiento (offset) y el límite (limit) de los resultados
     offset = (page - 1) * per_page
 
-    query = select(*[egresado.c, preparacion.c]).join(preparacion, egresado.c.preparacion_id == preparacion.c.id).order_by(egresado.c.preparacion_id)
-    
-    # Aplicar la paginación
-    query = query.offset(offset).limit(per_page)
-
-    # Ejecutar la consulta
+    query = (
+        select(*[egresado.c, preparacion.c])
+        .join(preparacion, egresado.c.preparacion_id == preparacion.c.id)
+        .order_by(egresado.c.preparacion_id)
+        .offset(offset)
+        .limit(per_page)
+    )
     result = conn.execute(query).mappings().fetchall()
-    return result
+
+    total_query = select(func.count()).select_from(egresado)
+    total_count = conn.execute(total_query).scalar()
+
+    total_pages = (total_count + per_page - 1) // per_page  # Calcular total de páginas
+
+    return {
+        "data": result,
+        "total": total_count,
+        "total_pages": total_pages,
+        "per_page": per_page,
+        "current_page": page
+    }
+
 
     
 @usuarios_real.get("/trabajos")
@@ -145,28 +161,69 @@ def update_egresado(matricula: str, user: User):
 def get_user(
     matricula: str = Query(None), 
     nombres: str = Query(None), 
-    ap_paterno: str = Query(None)
+    ap_paterno: str = Query(None),
+    ap_materno: str = Query(None), 
+    carrera: str = Query(None), 
+    generacion: str = Query(None),
+    page: int = Query(1, alias="page"),
+    per_page: int = Query(10, alias="per_page")
 ):
-    # Verificar si al menos uno de los parámetros está presente
-    if not any([matricula, nombres, ap_paterno]):
-        raise HTTPException(status_code=400, detail="Debe proporcionar al menos un criterio de búsqueda.")
+    try:
+        print(f"Parámetros recibidos: matricula={matricula}, nombres={nombres}, ap_paterno={ap_paterno}, ap_materno={ap_materno}, carrera={carrera}, generacion={generacion}, page={page}, per_page={per_page}")
 
-    query = (
-        select(egresado,preparacion).select_from(egresado.join(preparacion, egresado.c.preparacion_id == preparacion.c.id))
-    )
-    
-    # Filtrar por los parámetros proporcionados
-    if matricula:
-        query = query.where(egresado.c.matricula.ilike(f"%{matricula}%"))
-    if nombres:
-        query = query.where(egresado.c.nombres.ilike(f"%{nombres}%"))
-    if ap_paterno:
-        query = query.where(egresado.c.ap_paterno.ilike(f"%{ap_paterno}%"))
+        if not any([matricula, nombres, ap_paterno, ap_materno, carrera, generacion]):
+            raise HTTPException(status_code=400, detail="Debe proporcionar al menos un criterio de búsqueda.")
 
-    result = conn.execute(query).mappings().all()
+        query = (
+            select(
+                egresado,
+                preparacion
+            )
+            .select_from(
+                egresado.join(preparacion, egresado.c.preparacion_id == preparacion.c.id)
+            )
+        )
 
-    if result:
-        return result
-    else:
-        raise HTTPException(status_code=404, detail="Usuario no encontrado")
+        filters = []
+        if matricula:
+            filters.append(egresado.c.matricula.ilike(f"%{matricula}%"))
+        if nombres:
+            filters.append(egresado.c.nombres.ilike(f"%{nombres}%"))
+        if ap_paterno:
+            filters.append(egresado.c.ap_paterno.ilike(f"%{ap_paterno}%"))
+        if ap_materno:
+            filters.append(egresado.c.ap_materno.ilike(f"%{ap_materno}%"))
+        if carrera:
+            filters.append(preparacion.c.carrera == carrera)
+        if generacion:
+            filters.append(preparacion.c.generacion.ilike(f"%{generacion}%"))
 
+        if filters:
+            query = query.where(and_(*filters))
+
+        # Obtener el total de registros sin paginación
+        total_count_query = select(func.count()).select_from(query.subquery())
+        total_count = conn.execute(total_count_query).scalar()
+
+        # Calcular el total de páginas
+        total_pages = (total_count // per_page) + (1 if total_count % per_page > 0 else 0)
+
+        # Aplicar paginación con LIMIT y OFFSET
+        paginated_query = query.limit(per_page).offset((page - 1) * per_page)
+        result = conn.execute(paginated_query).mappings().all()
+
+        print(f"Total de registros encontrados: {total_count}")
+        print(f"Total de páginas: {total_pages}")
+        print(f"Resultados devueltos en esta página: {len(result)}")
+
+        return {
+            "total_count": total_count,
+            "total_pages": total_pages,
+            "current_page": page,
+            "per_page": per_page,
+            "data": result
+        }
+
+    except Exception as e:
+        print(f"Error interno del servidor: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Error interno del servidor: {str(e)}")

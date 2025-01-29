@@ -12,6 +12,9 @@ app.include_router(usuarios_real)
 @app.get("/actualizar", response_class=FileResponse)
 async def get_form():
     return FileResponse("static/index.html") 
+@app.get("/usuario", response_class=FileResponse)
+async def get_form():
+    return FileResponse("static/crear.html") 
 @app.get("/login", response_class=FileResponse)
 async def get_form():
     return FileResponse("static/login.html") 
@@ -21,3 +24,6 @@ async def get_form():
 @app.get("/listar", response_class=FileResponse)
 async def get_form():
     return FileResponse("static/lista.html") 
+@app.get("/buscar", response_class=FileResponse)
+async def get_form():
+    return FileResponse("static/busqueda.html") 

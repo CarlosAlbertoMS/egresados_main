@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <title>Listado de Usuarios</title>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="h3">Listado de Egresados</h1>
+            <div class="text-end mt-4">
+                <button id="logout" class="btn btn-danger btn-lg">Cerrar Sesión</button>
+                <button id="createUser" class="btn btn-danger btn-lg" style="background-color: blue;">Crear
+                    egresado</button>
+                <button id="list" class="btn btn-danger btn-lg" style="background-color: green;">Volver a
+                    listar</button>
+            </div>
+        </div>
+        <div class="container mt-4">
+            <div class="row g-3">
+                <!-- Campo de búsqueda -->
+                <div class="col-md-4">
+                    <input type="text" id="searchInput" class="form-control" placeholder="Buscar usuario">
+                </div>
+                <!-- Selección de tipo de búsqueda -->
+                <div class="col-md-3">
+                    <select id="surnameTypeSelect" class="form-select">
+                        <option value="">Seleccionar tipo de búsqueda</option>
+                        <option value="matricula">Matrícula</option>
+                        <option value="nombres">Nombre</option>
+                        <option value="ap_paterno">Apellido Paterno</option>
+                        <option value="ap_materno">Apellido Materno</option>
+                        <option value="generacion">Generación</option>
+                    </select>
+                </div>
+                <!-- Selección de carrera -->
+                <div class="col-md-4">
+                    <select id="careerSelect" class="form-select">
+                        <option value="">Seleccionar Carrera</option>
+                        <option value="2">Licenciatura en Ingeniería en Computación</option>
+                        <option value="3">Licenciatura en Ingeniería en Diseño</option>
+                        <option value="4">Licenciatura en Ingeniería en Electrónica</option>
+                        <option value="5">Licenciatura en Ciencias Empresariales</option>
+                        <option value="6">Licenciatura en Ingeniería en Alimentos</option>
+                        <option value="7">Licenciatura en Matemáticas Aplicadas</option>
+                        <option value="8">Maestría en Electrónica y Computación</option>
+                        <option value="9">Doctorado en Electrónica y Computación</option>
+                        <option value="10">Maestría en Computación con Especialidad en Sistemas Distribuidos</option>
+                        <option value="11">Licenciatura en Ingeniería Industrial</option>
+                        <option value="12">Licenciatura en Estudios Mexicanos</option>
+                        <option value="13">Mestría en Ingeniería en Software</option>
+                        <option value="14">Ingeniería en Mecatrónica</option>
+                        <option value="15">Mestría en Administración de Negocios</option>
+                        <option value="16">Mestría en Medios Interactivos</option>
+                        <option value="17">Licenciatura en Ingeniería en Física Aplicada</option>
+                        <option value="18">Maestría en Ciencias: Productos Naturales y Alimentos</option>
+                        <option value="19">Mestría en Tecnología Avanzada de Manufactura</option>
+                        <option value="20">Maestría en Tecnologías de Cómputo Aplicado</option>
+                        <option value="21">Mestría en Electrónica, Opción: Sistemas Inteligentes Aplicados</option>
+                        <option value="22">Maestría en Modelación Matematica</option>
+                        <option value="23">Maestría en Diseño de Muebles</option>
+                        <option value="24">Maestría en Diseño de Modas</option>
+                        <option value="25">Maestría en Robótica</option>
+                        <option value="26">Doctorado en Tecnologías de Cómputo Aplicado E Ingeniería de la Computación
+                        </option>
+                        <option value="27">Doctorado en Electrónica, Opción: Sistemas Inteligentes Aplicados</option>
+                        <option value="28">Doctorado en Robótica</option>
+                        <option value="29">Doctorado en Modelación Matemática</option>
+                        <option value="30">Maestría en Ciencias de Materiales</option>
+                        <option value="31">Licenciatura en Ingeniería Mecánica Automotriz</option>
+                        <option value="32">Licenciatura en Ingeniería Civil</option>
+                        <option value="33">Doctorado en Ciencias: Productos Naturales y Alimentos</option>
+                        <option value="34">Maestría en Inteligencia Artificial</option>
+                        <option value="35">Doctorado en Inteligencia Artificial</option>
+                        <option value="36">Ingeniería Química en Procesos Sostenibles</option>
+                        <option value="37">Maestría en Ciencia de Datos</option>
+                    </select>
+                </div>
+                <!-- Botón de búsqueda -->
+                <!-- Botón de búsqueda -->
+                <div class="col-md-1 d-grid">
+                    <button onclick="searchUser()" class="btn btn-primary">Buscar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div id="totalRecords" class="alert alert-info">
+        Total de registros encontrados: <span id="totalRecordsCount">0</span>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover" border="1" id="userTable">
+            <thead class="table-dark">
+                <tr>
+                    <th>Matrícula</th>
+                    <th>Apellido Paterno</th>
+                    <th>Apellido Materno</th>
+                    <th>Nombres</th>
+                    <th>CURP</th>
+                    <th>Carrera</th>
+                    <th>Género</th>
+                    <th>Nacionalidad</th>
+                    <th>Teléfono</th>
+                    <th>Fecha de Nacimiento</th>
+                    <th>Lugar de Origen</th>
+                    <th>Dirección Actual</th>
+                    <th>Imagen</th>
+                    <th>CV</th>
+                    <th>Habilitado</th>
+                    <th>Primer Empleo</th>
+                    <th>Bandera Encuesta</th>
+                    <th>Generación</th>
+                    <th>Promedio</th>
+                    <th>Fecha de Inicio</th>
+                    <th>Fecha de Fin</th>
+                    <th>Forma de Titulación</th>
+                    <th>Fecha de Titulación</th>
+                    <th>Última Modificación</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-center my-4">
+            <!-- Controles de paginación -->
+            <div class="pagination-controls d-flex justify-content-center align-items-center">
+                <button id="prevPageButton" onclick="prevPage()" class="btn btn-primary me-2" disabled>Anterior</button>
+
+                <span class="mx-3">Página <span id="currentPage">1</span> de <span id="totalPages">1</span></span>
+
+                <button id="nextPageButton" onclick="nextPage()" class="btn btn-primary ms-2"
+                    disabled>Siguiente</button>
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+
+    </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+
+
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const userToken = sessionStorage.getItem('userToken');
+
+        if (!userToken) {
+            window.location.href = "/login";
+        }
+    });
+
+    let currentPage = 1;
+    let searchParams = {};
+    let allResults = [];
+    let resultsPerPage = 10;
+
+    // Función para realizar la búsqueda de usuarios
+    function searchUser() {
+        const searchInput = document.getElementById("searchInput").value.trim();
+        const searchType = document.getElementById("surnameTypeSelect").value;
+        const careerSelect = document.getElementById("careerSelect");
+        const carreraInput = careerSelect ? careerSelect.value : null;
+
+        // Validar la entrada
+        if (!searchInput && !carreraInput) {
+            alert("Por favor ingresa un valor para buscar.");
+            return;
+        }
+        if (!searchType && !carreraInput) {
+            alert("Selecciona un tipo de búsqueda o ingresa una carrera.");
+            return;
+        }
+
+        // Preparar los parámetros de búsqueda
+        searchParams = {};
+        if (searchType) {
+            searchParams[searchType] = searchInput;
+        }
+        if (carreraInput) {
+            searchParams['carrera'] = carreraInput;
+        }
+
+        // Reiniciar la página a 1 en cada nueva búsqueda
+        currentPage = 1;
+
+        // Obtener los resultados de la búsqueda
+        fetchResults();
+    }
+
+    // Función para obtener los resultados de la búsqueda
+    function fetchResults() {
+        const url = new URL(`/reales/buscar`, window.location.origin);
+
+        Object.keys(searchParams).forEach(key => url.searchParams.set(key, searchParams[key]));
+        url.searchParams.set("page", currentPage);
+        url.searchParams.set("per_page", resultsPerPage);
+
+        console.log('URL de búsqueda:', url.toString());
+
+        fetch(url)
+            .then(response => response.json())
+            .then(result => {
+                if (!Array.isArray(result.data)) {
+                    throw new Error('Respuesta de búsqueda incorrecta.');
+                }
+
+                // Guardar todos los resultados
+                allResults = result.data;
+
+                // Guardar el total de páginas
+                totalPages = result.total_pages;
+
+                // Actualizar la vista con los resultados
+                updateTableView();
+
+                // Actualizar los controles de paginación
+                updatePaginationControls(result.current_page, result.total_pages);
+
+                // Actualizar el total de registros en la interfaz
+                document.getElementById("totalRecordsCount").textContent = result.total_count;
+            })
+
+    }
+
+    // Función para actualizar la vista de la tabla
+    function updateTableView() {
+        const tbody = document.querySelector("#userTable tbody");
+        tbody.innerHTML = "";
+
+        if (allResults.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="25" class="text-center">No se encontraron registros.</td></tr>`;
+            return;
+        }
+
+        allResults.forEach(user => {
+            const row = `<tr>
+                <td>${user.matricula || '-'}</td>
+                <td>${user.ap_paterno || '-'}</td>
+                <td>${user.ap_materno || '-'}</td>
+                <td>${user.nombres || '-'}</td>
+                <td>${user.curp || '-'}</td>
+                <td>${carrerasMap[user.carrera] || '-'}</td>
+                <td>${user.genero || '-'}</td>
+                <td>${user.nacionalidad || '-'}</td>
+                <td>${user.telefono || '-'}</td>
+                <td>${user.fecha_nacimiento || '-'}</td>
+                <td>${user.lugar_origen || '-'}</td>
+                <td>${user.direccion_actual || '-'}</td>
+                <td>${user.imagen ? `<img src="${user.imagen}" alt="Foto" width="50">` : '-'}</td>
+                <td>${user.cv ? `<a href="${user.cv}" target="_blank">Ver CV</a>` : '-'}</td>
+                <td>${user.habilitado ? 'Sí' : 'No'}</td>
+                <td>${user.primer_empleo || '-'}</td>
+                <td>${user.bandera_encuesta || '-'}</td>
+                <td>${user.generacion || '-'}</td>
+                <td>${user.promedio || '-'}</td>
+                <td>${user.fecha_inicio || '-'}</td>
+                <td>${user.fecha_fin || '-'}</td>
+                <td>${user.forma_titulacion || '-'}</td>
+                <td>${user.fecha_titulacion || '-'}</td>
+                <td>${user.ultima_modificacion || '-'}</td>
+                <td>
+                    <button class="btn btn-warning btn-sm" onclick="editUser(${user.id})">Editar</button>
+                    <button class="btn btn-danger btn-sm" onclick="deleteUser(${user.id})">Eliminar</button>
+                </td>
+            </tr>`;
+            tbody.innerHTML += row;
+        });
+    }
+
+    // Función para actualizar los controles de paginación
+    function updatePaginationControls(currentPage, totalPages) {
+        console.log('Actualizando paginación: Página ' + currentPage + ' de ' + totalPages);
+
+        // Actualizar los controles de paginación
+        const nextButton = document.getElementById("nextPageButton");
+        const prevButton = document.getElementById("prevPageButton");
+
+        // Actualizar página actual
+        document.getElementById("currentPage").textContent = currentPage;
+        document.getElementById("totalPages").textContent = totalPages;
+
+        // Habilitar/deshabilitar botones de paginación
+        prevButton.disabled = currentPage === 1;
+        nextButton.disabled = currentPage === totalPages;
+    }
+
+
+    // Función para ir a la siguiente página
+    function nextPage() {
+        if (currentPage < totalPages) {
+            currentPage++;
+            fetchResults(); // Cambia esta línea para usar fetchResults()
+        }
+    }
+
+    // Función para ir a la página anterior
+    function prevPage() {
+        if (currentPage > 1) {
+            currentPage--;
+            fetchResults(); // Cambia esta línea para usar fetchResults()
+        }
+    }
+
+
+    const carrerasMap = {
+        2: "Licenciatura en Ingeniería en Computación",
+        3: "Licenciatura en Ingeniería en Diseño",
+        4: "Licenciatura en Ingeniería en Electrónica",
+        5: "Licenciatura en Ciencias Empresariales",
+        6: "Licenciatura en Ingeniería en Alimentos",
+        7: "Licenciatura en Matemáticas Aplicadas",
+        8: "Maestría en Electrónica y Computación",
+        9: "Doctorado en Electrónica y Computación",
+        10: "Maestría en Computación con Especialidad en Sistemas Distribuidos",
+        11: "Licenciatura en Ingeniería Industrial",
+        12: "Licenciatura en Estudios Mexicanos",
+        13: "Mestría en Ingeniería en Software",
+        14: "Ingeniería en Mecatrónica",
+        15: "Mestría en Administración de Negocios",
+        16: "Mestría en Medios Interactivos",
+        17: "Licenciatura en Ingeniería en Física Aplicada",
+        18: "Maestría en Ciencias: Productos Naturales y Alimentos",
+        19: "Mestría en Tecnología Avanzada de Manufactura",
+        20: "Maestría en Tecnologías de Cómputo Aplicado",
+        21: "Mestría en Electrónica, Opción: Sistemas Inteligentes Aplicados",
+        22: "Maestría en Modelación Matemática",
+        23: "Maestría en Diseño de Muebles",
+        24: "Maestría en Diseño de Modas",
+        25: "Maestría en Robótica",
+        26: "Doctorado en Tecnologías de Cómputo Aplicado E Ingeniería de la Computación",
+        27: "Doctorado en Electrónica, Opción: Sistemas Inteligentes Aplicados",
+        28: "Doctorado en Robótica",
+        29: "Doctorado en Modelación Matemática",
+        30: "Maestría en Ciencias de Materiales",
+        31: "Licenciatura en Ingeniería Mecánica Automotriz",
+        32: "Licenciatura en Ingeniería Civil",
+        33: "Doctorado en Ciencias: Productos Naturales y Alimentos",
+        34: "Maestría en Inteligencia Artificial",
+        35: "Doctorado en Inteligencia Artificial",
+        36: "Ingeniería Química en Procesos Sostenibles",
+        37: "Maestría en Ciencia de Datos"
+    };
+
+    function editUser(matricula) {
+        window.location.href = `/actualizar?matricula=${matricula}`;
+    }
+
+    function createUser() {
+        window.location.href = "/crear";
+    }
+
+    function listUsers() {
+        window.location.href = "/listar";
+    }
+
+    function logout() {
+        sessionStorage.removeItem('userToken');
+        window.location.href = "/login";
+    }
+
+    document.getElementById('logout').addEventListener('click', logout);
+    document.getElementById('createUser').addEventListener('click', createUser);
+    document.getElementById('list').addEventListener('click', listUsers);
+</script>
+
+</html>
