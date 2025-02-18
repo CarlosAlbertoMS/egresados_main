@@ -269,11 +269,10 @@
                 <td>${user.fecha_inicio || '-'}</td>
                 <td>${user.fecha_fin || '-'}</td>
                 <td>${user.forma_titulacion || '-'}</td>
-                <td>${user.fecha_titulacion || '-'}</td>
+                <td>${user.fecha_titulo || '-'}</td>
                 <td>${user.ultima_modificacion || '-'}</td>
                 <td>
-                    <button class="btn btn-warning btn-sm" onclick="editUser(${user.id})">Editar</button>
-                    <button class="btn btn-danger btn-sm" onclick="deleteUser(${user.id})">Eliminar</button>
+                    <button class="btn btn-warning btn-sm" onclick="editUser('${user.matricula}')">Editar</button>
                 </td>
             </tr>`;
             tbody.innerHTML += row;

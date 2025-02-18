@@ -17,7 +17,7 @@
                 <button id="logout" class="btn btn-danger btn-lg">Cerrar Sesión</button>
                 <button id="createUser" class="btn btn-danger btn-lg" style="background-color: blue;">Crear
                     egresado</button>
-                <button id="buscarUser" class="btn btn-danger btn-lg" style="background-color: aqua;">Buscar</button>
+                <button id="buscarUser" class="btn btn-danger btn-lg" style="background-color: black;">Buscar</button>
 
             </div>
         </div>
@@ -198,14 +198,12 @@
                     <td>${user.ap_materno}</td>
                     <td>${user.nombres}</td>
                     <td>${user.curp}</td>
-                    <td>${user.carrera}</td>
-                    <td>${user.generacion}</td>
+                    <td>${carrerasMap[user.carrera] || 'N/A'}</td> <!-- Aquí se traduce la carrera -->
                     <td>${user.genero}</td>
                     <td>${user.nacionalidad}</td>
                     <td>${user.telefono}</td>
                     <td>${user.fecha_nacimiento || 'N/A'}</td>
                     <td>${user.lugar_origen || 'N/A'}</td>
-                    <td>${carrerasMap[user.carrera] || 'N/A'}</td> <!-- Aquí se traduce la carrera -->
                     <td>${user.direccion_actual || 'N/A'}</td>
                     <td>${user.imagen_url ? `<a href="${user.imagen_url}" target="_blank">Ver Imagen</a>` : 'N/A'}</td>
                     <td>${user.cv_url ? `<a href="${user.cv_url}" target="_blank">Ver CV</a>` : 'N/A'}</td>
@@ -230,7 +228,6 @@
 
     // Función para editar un usuario
     function editUser(matricula) {
-        // Redirigir a la página de actualización pasando la matrícula como parámetro en la URL
         window.location.href = `/actualizar?matricula=${matricula}`;
     }
 

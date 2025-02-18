@@ -215,7 +215,8 @@
     });
         // Función para cargar los datos del usuario en el formulario
         const urlParams = new URLSearchParams(window.location.search);
-        const matricula = urlParams.get('matricula'); // Get the 'matricula' from the URL
+        const matricula = urlParams.get('matricula'); // Ahora matricula tiene el valor correcto
+
         console.log(matricula);
         if (matricula) {
             // Call the function to load the user data
@@ -225,14 +226,15 @@
         }
 
         
-    function loadUserData(matricula) {
-        fetch(`/reales/buscar?matricula=${matricula}`)
-            .then(response => response.json())
-            .then(data => {
-                // Suponiendo que 'data' es un array, accedemos al primer elemento
-                const user = data[0];
-
-                // Asignamos los valores a los campos del formulario
+        function loadUserData(matricula) {
+    fetch(`/reales/buscar?matricula=${matricula}`)
+        .then(response => response.json())
+        .then(data => {
+            // Verifica si la clave 'data' existe y tiene elementos
+            if (data.data && data.data.length > 0) {
+                const user = data.data[0]; // Accede al primer elemento dentro de 'data'
+                const cleanValue = (value) => value ? value.trim() : "";
+                // Asignar valores a los campos del formulario
                 document.getElementById('matricula').value = user.matricula.trim();
                 document.getElementById('ap_paterno').value = user.ap_paterno.trim();
                 document.getElementById('ap_materno').value = user.ap_materno.trim();
@@ -244,23 +246,29 @@
                 document.getElementById('telefono').value = user.telefono.trim();
                 document.getElementById('lugar_origen').value = user.lugar_origen.trim();
                 document.getElementById('direccion_actual').value = user.direccion_actual.trim();
-                document.getElementById('imagen_url').value = user.imagen_url.trim();
-                document.getElementById('cv_url').value = user.cv_url.trim();
+                document.getElementById('imagen_url').value = user.imagen_url ? user.imagen_url.trim() : "";
+                document.getElementById('cv_url').value = user.cv_url ? user.cv_url.trim() : "";
                 document.getElementById('habilitado').value = user.habilitado;
                 document.getElementById('primer_empleo_id').value = user.primer_empleo_id ? user.primer_empleo_id : "";
                 document.getElementById('banderaEnc').value = user.banderaEnc;
-                document.getElementById('carrera').value=user.carrera;
-                document.getElementById('generacion').value=user.generacion;
+                document.getElementById('carrera').value = user.carrera;
+                document.getElementById('generacion').value = user.generacion;
                 document.getElementById('fecha_inicio').value = user.fecha_inicio;
                 document.getElementById('fecha_fin').value = user.fecha_fin;
                 document.getElementById('promedio').value = user.promedio;
-                document.getElementById('forma_titulacion').value=user.forma_titulacion;
-                document.getElementById('fecha_titulo').value = user.fecha_titulo;
-            })
-            .catch(error => {
-                console.error('Error al cargar los datos:', error);
-            });
-    }
+                document.getElementById('forma_titulacion').value = user.forma_titulacion ? user.forma_titulacion : "";
+                document.getElementById('fecha_titulo').value = user.fecha_titulo ? user.fecha_titulo : "";
+            } else {
+                alert("No se encontraron datos para la matrícula proporcionada.");
+            }
+        })
+        .catch(error => {
+            console.error('Error al cargar los datos:', error);
+            alert("Hubo un error al cargar los datos.");
+        });
+}
+
+
         document.getElementById("updateForm").addEventListener("submit", function(event) {
             event.preventDefault(); // Evitar el envío por defecto
 
