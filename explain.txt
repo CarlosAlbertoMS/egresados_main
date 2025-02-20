@@ -4,4 +4,4 @@ en la db la tabla contiene como nombre del campo la pregunta con numero, por eje
 como las preguntas que piden elegir 5 o más.
 para el caaso de donde se guardan numeros, dependiendo de la pregunta guarda un numero:
 las de si, no se guarda 1 si 2 no
-para las demás como son por inciso, cada inciso es un numero, a=1, b=2, etc etc
+para las demás como son por inciso, cada inciso es un numero, a=1, b=2, etc etc2

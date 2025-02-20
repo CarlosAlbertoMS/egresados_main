@@ -7,7 +7,7 @@ class Empleador(BaseModel):
     correo: Optional[str] =  "sin correo"
     puesto: Optional[str] =  "sin puesto"
     telefono: Optional[str] = None
-    licenciatura_posgrado: Optional[str] = None
+    licenciatura_posgrado: Optional[int] = None
     puesto_egresado: Optional[str] = None
     antiguedad: Optional[int] = None
     uno: Optional[int] = None
