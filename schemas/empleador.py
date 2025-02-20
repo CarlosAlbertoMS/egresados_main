@@ -1,0 +1,49 @@
+from pydantic import BaseModel
+from typing import Optional
+
+class Empleador(BaseModel):
+    nombre_empresa: Optional[str] = "sin nombre"
+    nombre_jefe: Optional[str] =  "sin nombre"
+    correo: Optional[str] =  "sin correo"
+    puesto: Optional[str] =  "sin puesto"
+    telefono: Optional[str] = None
+    licenciatura_posgrado: Optional[str] = None
+    puesto_egresado: Optional[str] = None
+    antiguedad: Optional[int] = None
+    uno: Optional[int] = None
+    dosa: Optional[int] = None
+    dosb: Optional[str] = None
+    tresa: Optional[int] = None
+    tresb: Optional[str] = None
+    cuatroa: Optional[int] = None
+    cuatrob: Optional[int] = None
+    cuatroc: Optional[int] = None
+    cuatrod: Optional[int] = None
+    cuatroe: Optional[int] = None
+    cuatrof: Optional[str] = None
+    cinco: Optional[str] = None
+    seisa: Optional[int] = None
+    seisb: Optional[str] = None
+    sietea: Optional[int] = None
+    sieteb: Optional[int] = None
+    sietec: Optional[int] = None
+    sieted: Optional[int] = None
+    sietee: Optional[int] = None
+    sietef: Optional[str] = None
+    ocho: Optional[str] = None
+    nuevea: Optional[int] = None
+    nueveb: Optional[int] = None
+    nuevec: Optional[int] = None
+    nueved: Optional[int] = None
+    nuevee: Optional[int] = None
+    nuevef: Optional[int] = None
+    nueveg: Optional[str] = None
+    dieza: Optional[int] = None
+    diezb: Optional[int] = None
+    diezc: Optional[int] = None
+    diezd: Optional[int] = None
+    dieze: Optional[int] = None
+    diezf: Optional[int] = None
+    oncea: Optional[int] = None
+    onceb: Optional[str] = None
+    doce: Optional[str] = None

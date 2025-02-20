@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Bootstrap</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Formulario Empleadores</h2>
+        <form id="empleadorForm">
+            <div class="mb-3">
+                <label for="nombre_empresa" class="form-label">Nombre de la empresa:</label>
+                <input type="text" class="form-control" id="nombre_empresa" name="nombre_empresa"  >
+            </div>
+            <div class="mb-3">
+                <label for="nombre_jefe" class="form-label">Nombre jefe inmediato:</label>
+                <input type="text" class="form-control" id="nombre_jefe" name="nombre_jefe"  >
+            </div>
+            <div class="mb-3">
+                <label for="correo" class="form-label">Correo:</label>
+                <input type="email" class="form-control" id="correo" name="correo"  >
+            </div>
+            <div class="mb-3">
+                <label for="puesto" class="form-label">Puesto:</label>
+                <input type="text" class="form-control" id="puesto" name="puesto"  >
+            </div>
+            
+            <div class="mb-3">
+                <label for="telefono" class="form-label">Telefono:</label>
+                <input type="text" class="form-control" id="telefono" name="telefono"  >
+            </div>
+
+            <div class="mb-3">
+                <label for="licenciatura_posgrado" class="form-label">Nombre de la licenciatura o posgrado del egresado:</label>
+                <input type="text" class="form-control" id="licenciatura_posgrado" name="licenciatura_posgrado"  >
+            </div>
+
+            <div class="mb-3">
+                <label for="puesto_egresado" class="form-label">Puesto del egresado:</label>
+                <input type="text" class="form-control" id="puesto_egresado" name="puesto_egresado"  >
+            </div>
+            
+            <div class="mb-3">
+                <label for="antiguedad" class="form-label">Antigüedad:</label>
+                <input type="number" class="form-control" id="antiguedad" name="antiguedad"  >
+            </div>
+            
+            <div class="mb-3">
+                <label for="opcion" class="form-label">Grado de conocimientos del egresado</label>
+                <select class="form-select" id="conocimientos_egresado" name="conocimientos_egresado">
+                    <option value=1>Excelente</option>
+                    <option value=2>Sobresaliente</option>
+                    <option value=3>Aceptable</option>
+                    <option value=4>Insuficiente</option>
+                    <option value=5>Deficiente</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="opcion" class="form-label">¿El egresado carece de conocimientos basicos?</label>
+                <select class="form-select" id="carencias" name="carencias">
+                    <option value=1>Si</option>
+                    <option value=2>No</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="puesto_egresado" class="form-label">En caso de que sí, ¿Cuales?</label>
+                <input type="text" class="form-control" id="carencias_con" name="carencias_con"  >
+            </div>
+
+            <div class="mb-3">
+                <label for="opcion" class="form-label">¿El egresado actualizó sus conocimientos?</label>
+                <select class="form-select" id="act_conocimientos" name="act_conocimientos">
+                    <option value=1>Si</option>
+                    <option value=2>No</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="puesto_egresado" class="form-label">En caso de que sí, ¿Cuales?</label>
+                <input type="text" class="form-control" id="act_con" name="act_con"  >
+            </div>
+
+            <div class="mb-3">
+                <label for="habilidades" class="form-label">Seleccione una habilidad:</label>
+                <select class="form-select" id="4a" name="4a" >
+                    <option value=1>Comunicar</option>
+                    <option value=2>Dirigir</option>
+                    <option value=3>Trabajar en equipo</option>
+                    <option value=4>Identificar y resolver problemas</option>
+                    <option value=5>Analizar</option>
+                    <option value=6>Negociar</option>
+                    <option value=7>Aprender</option>
+                    <option value=8>Ser creativo</option>
+                    <option value=9>Proponer</option>
+                    <option value=10>Categorizar/clasificar</option>
+                    <option value=11>Describir/explicar</option>
+                    <option value=12>Evaluar</option>
+                    <option value=13>Procesar</option>
+                    <option value=14>Expresar</option>
+                    <option value=15>Escuchar</option>
+                    <option value=16>Resolver conflictos</option>
+                    <option value=17>Solicitar</option>
+                    <option value=18>Decidir</option>
+                    <option value=19>Interpretar</option>
+                    <option value=20>Rebatir</option>
+                    <option value=21>Innovar</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="habilidades" class="form-label">Seleccione una habilidad:</label>
+                <select class="form-select" id="4b" name="4b" >
+                    <option value=1>Comunicar</option>
+                    <option value=2>Dirigir</option>
+                    <option value=3>Trabajar en equipo</option>
+                    <option value=4>Identificar y resolver problemas</option>
+                    <option value=5>Analizar</option>
+                    <option value=6>Negociar</option>
+                    <option value=7>Aprender</option>
+                    <option value=8>Ser creativo</option>
+                    <option value=9>Proponer</option>
+                    <option value=10>Categorizar/clasificar</option>
+                    <option value=11>Describir/explicar</option>
+                    <option value=12>Evaluar</option>
+                    <option value=13>Procesar</option>
+                    <option value=14>Expresar</option>
+                    <option value=15>Escuchar</option>
+                    <option value=16>Resolver conflictos</option>
+                    <option value=17>Solicitar</option>
+                    <option value=18>Decidir</option>
+                    <option value=19>Interpretar</option>
+                    <option value=20>Rebatir</option>
+                    <option value=21>Innovar</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="habilidades" class="form-label">Seleccione una habilidad:</label>
+                <select class="form-select" id="4c" name="4c" >
+                    <option value=1>Comunicar</option>
+                    <option value=2>Dirigir</option>
+                    <option value=3>Trabajar en equipo</option>
+                    <option value=4>Identificar y resolver problemas</option>
+                    <option value=5>Analizar</option>
+                    <option value=6>Negociar</option>
+                    <option value=7>Aprender</option>
+                    <option value=8>Ser creativo</option>
+                    <option value=9>Proponer</option>
+                    <option value=10>Categorizar/clasificar</option>
+                    <option value=11>Describir/explicar</option>
+                    <option value=12>Evaluar</option>
+                    <option value=13>Procesar</option>
+                    <option value=14>Expresar</option>
+                    <option value=15>Escuchar</option>
+                    <option value=16>Resolver conflictos</option>
+                    <option value=17>Solicitar</option>
+                    <option value=18>Decidir</option>
+                    <option value=19>Interpretar</option>
+                    <option value=20>Rebatir</option>
+                    <option value=21>Innovar</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="habilidades" class="form-label">Seleccione una habilidad:</label>
+                <select class="form-select" id="4d" name="4d" >
+                    <option value=1>Comunicar</option>
+                    <option value=2>Dirigir</option>
+                    <option value=3>Trabajar en equipo</option>
+                    <option value=4>Identificar y resolver problemas</option>
+                    <option value=5>Analizar</option>
+                    <option value=6>Negociar</option>
+                    <option value=7>Aprender</option>
+                    <option value=8>Ser creativo</option>
+                    <option value=9>Proponer</option>
+                    <option value=10>Categorizar/clasificar</option>
+                    <option value=11>Describir/explicar</option>
+                    <option value=12>Evaluar</option>
+                    <option value=13>Procesar</option>
+                    <option value=14>Expresar</option>
+                    <option value=15>Escuchar</option>
+                    <option value=16>Resolver conflictos</option>
+                    <option value=17>Solicitar</option>
+                    <option value=18>Decidir</option>
+                    <option value=19>Interpretar</option>
+                    <option value=20>Rebatir</option>
+                    <option value=21>Innovar</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="habilidades" class="form-label">Seleccione una habilidad:</label>
+                <select class="form-select" id="4e" name="4e" >
+                    <option value=1>Comunicar</option>
+                    <option value=2>Dirigir</option>
+                    <option value=3>Trabajar en equipo</option>
+                    <option value=4>Identificar y resolver problemas</option>
+                    <option value=5>Analizar</option>
+                    <option value=6>Negociar</option>
+                    <option value=7>Aprender</option>
+                    <option value=8>Ser creativo</option>
+                    <option value=9>Proponer</option>
+                    <option value=10>Categorizar/clasificar</option>
+                    <option value=11>Describir/explicar</option>
+                    <option value=12>Evaluar</option>
+                    <option value=13>Procesar</option>
+                    <option value=14>Expresar</option>
+                    <option value=15>Escuchar</option>
+                    <option value=16>Resolver conflictos</option>
+                    <option value=17>Solicitar</option>
+                    <option value=18>Decidir</option>
+                    <option value=19>Interpretar</option>
+                    <option value=20>Rebatir</option>
+                    <option value=21>Innovar</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="puesto_egresado" class="form-label">Otras, ¿Cuales?</label>
+                <input type="text" class="form-control" id="4f" name="4f">
+            </div>
+
+            <div class="mb-3">
+                <label for="5" class="form-label">¿Que habilidades no demostró el egresado?</label>
+                <input type="text" class="form-control" id="5" name="5">
+            </div>
+
+            <div class="mb-3">
+                <label for="opcion" class="form-label">¿El egresado carece de áreas de conocimiento?</label>
+                <select class="form-select" id="6a" name="6a">
+                    <option value=1>Si</option>
+                    <option value=2>No</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="puesto_egresado" class="form-label">En caso de que sí, ¿Cuales?</label>
+                <input type="text" class="form-control" id="6b" name="6b"  >
+            </div>
+
+            <label for="valores">Seleccione valores o actitudes importantes:</label>
+<select id="7a" name="7a" class="form-select">
+    <option value=1>Respeto</option>
+    <option value=2>Honestidad</option>
+    <option value=3>Lealtad</option>
+    <option value=4>Discrecionalidad</option>
+    <option value=5>Responsabilidad</option>
+    <option value=6>Tolerancia</option>
+    <option value=7>Respeto a la naturaleza</option>
+    <option value=8>Imparcialidad</option>
+    <option value=9>Solidaridad</option>
+    <option value=10>Integridad</option>
+    <option value=11>Disciplina</option>
+    <option value=12>Eficiencia</option>
+    <option value=13>Perseverancia</option>
+    <option value=14>Puntualidad</option>
+    <option value=15>Calidad en el trabajo</option>
+    <option value=16>Limpieza</option>
+    <option value=17>Disponibilidad</option>
+    <option value=18>Profesionalidad</option>
+    <option value=19>Empatía</option>
+    <option value=20>Honradez</option>
+    <option value=21>Justicia</option>
+</select>
+
+<label for="valores">Seleccione valores o actitudes importantes:</label>
+<select id="7b" name="7b" class="form-select">
+    <option value=1>Respeto</option>
+    <option value=2>Honestidad</option>
+    <option value=3>Lealtad</option>
+    <option value=4>Discrecionalidad</option>
+    <option value=5>Responsabilidad</option>
+    <option value=6>Tolerancia</option>
+    <option value=7>Respeto a la naturaleza</option>
+    <option value=8>Imparcialidad</option>
+    <option value=9>Solidaridad</option>
+    <option value=10>Integridad</option>
+    <option value=11>Disciplina</option>
+    <option value=12>Eficiencia</option>
+    <option value=13>Perseverancia</option>
+    <option value=14>Puntualidad</option>
+    <option value=15>Calidad en el trabajo</option>
+    <option value=16>Limpieza</option>
+    <option value=17>Disponibilidad</option>
+    <option value=18>Profesionalidad</option>
+    <option value=19>Empatía</option>
+    <option value=20>Honradez</option>
+    <option value=21>Justicia</option>
+</select>
+
+<label for="valores">Seleccione valores o actitudes importantes:</label>
+<select id="7c" name="7c" class="form-select">
+    <option value=1>Respeto</option>
+    <option value=2>Honestidad</option>
+    <option value=3>Lealtad</option>
+    <option value=4>Discrecionalidad</option>
+    <option value=5>Responsabilidad</option>
+    <option value=6>Tolerancia</option>
+    <option value=7>Respeto a la naturaleza</option>
+    <option value=8>Imparcialidad</option>
+    <option value=9>Solidaridad</option>
+    <option value=10>Integridad</option>
+    <option value=11>Disciplina</option>
+    <option value=12>Eficiencia</option>
+    <option value=13>Perseverancia</option>
+    <option value=14>Puntualidad</option>
+    <option value=15>Calidad en el trabajo</option>
+    <option value=16>Limpieza</option>
+    <option value=17>Disponibilidad</option>
+    <option value=18>Profesionalidad</option>
+    <option value=19>Empatía</option>
+    <option value=20>Honradez</option>
+    <option value=21>Justicia</option>
+</select>
+
+<label for="valores">Seleccione valores o actitudes importantes:</label>
+<select id="7d" name="7d" class="form-select">
+    <option value=1>Respeto</option>
+    <option value=2>Honestidad</option>
+    <option value=3>Lealtad</option>
+    <option value=4>Discrecionalidad</option>
+    <option value=5>Responsabilidad</option>
+    <option value=6>Tolerancia</option>
+    <option value=7>Respeto a la naturaleza</option>
+    <option value=8>Imparcialidad</option>
+    <option value=9>Solidaridad</option>
+    <option value=10>Integridad</option>
+    <option value=11>Disciplina</option>
+    <option value=12>Eficiencia</option>
+    <option value=13>Perseverancia</option>
+    <option value=14>Puntualidad</option>
+    <option value=15>Calidad en el trabajo</option>
+    <option value=16>Limpieza</option>
+    <option value=17>Disponibilidad</option>
+    <option value=18>Profesionalidad</option>
+    <option value=19>Empatía</option>
+    <option value=20>Honradez</option>
+    <option value=21>Justicia</option>
+</select>
+
+<label for="valores">Seleccione valores o actitudes importantes:</label>
+<select id="7e" name="7e" class="form-select">
+    <option value=1>Respeto</option>
+    <option value=2>Honestidad</option>
+    <option value=3>Lealtad</option>
+    <option value=4>Discrecionalidad</option>
+    <option value=5>Responsabilidad</option>
+    <option value=6>Tolerancia</option>
+    <option value=7>Respeto a la naturaleza</option>
+    <option value=8>Imparcialidad</option>
+    <option value=9>Solidaridad</option>
+    <option value=10>Integridad</option>
+    <option value=11>Disciplina</option>
+    <option value=12>Eficiencia</option>
+    <option value=13>Perseverancia</option>
+    <option value=14>Puntualidad</option>
+    <option value=15>Calidad en el trabajo</option>
+    <option value=16>Limpieza</option>
+    <option value=17>Disponibilidad</option>
+    <option value=18>Profesionalidad</option>
+    <option value=19>Empatía</option>
+    <option value=20>Honradez</option>
+    <option value=21>Justicia</option>
+</select>
+
+<div class="mb-3">
+    <label for="puesto_egresado" class="form-label">Otras, ¿Cuales?</label>
+    <input type="text" class="form-control" id="7f" name="7f">
+</div>
+
+<div class="mb-3">
+    <label for="puesto_egresado" class="form-label">Valores no demostrados</label>
+    <input type="text" class="form-control" id="8" name="8">
+</div>
+
+<div class="mb-3">
+    <label for="habilidades" class="form-label">Factores para contratar:</label>
+    <select class="form-select" id="9a" name="9a" >
+        <option value=0>Ninguna</option>
+        <option value=1>Competencias Laborales</option>
+        <option value=2>Estar titulado</option>
+        <option value=3>Acreditar examen de selección</option>
+        <option value=4>Ser egresado de la UTM</option>
+        <option value=5>Dominar un idioma extranjero</option>
+        <option value=6>Habilidades socio-comunicativas</option>
+    </select>
+</div>
+<div class="mb-3">
+    <label for="habilidades" class="form-label">Factores para contratar:</label>
+    <select class="form-select" id="9b" name="9b" >
+        <option value=0>Ninguna</option>
+        <option value=1>Competencias Laborales</option>
+        <option value=2>Estar titulado</option>
+        <option value=3>Acreditar examen de selección</option>
+        <option value=4>Ser egresado de la UTM</option>
+        <option value=5>Dominar un idioma extranjero</option>
+        <option value=6>Habilidades socio-comunicativas</option>
+    </select>
+</div>
+<div class="mb-3">
+    <label for="habilidades" class="form-label">Factores para contratar:</label>
+    <select class="form-select" id="9c" name="9c" >
+        <option value=0>Ninguna</option>
+        <option value=1>Competencias Laborales</option>
+        <option value=2>Estar titulado</option>
+        <option value=3>Acreditar examen de selección</option>
+        <option value=4>Ser egresado de la UTM</option>
+        <option value=5>Dominar un idioma extranjero</option>
+        <option value=6>Habilidades socio-comunicativas</option>
+    </select>
+</div>
+<div class="mb-3">
+    <label for="habilidades" class="form-label">Factores para contratar:</label>
+    <select class="form-select" id="9d" name="9d" >
+        <option value=0>Ninguna</option>
+        <option value=1>Competencias Laborales</option>
+        <option value=2>Estar titulado</option>
+        <option value=3>Acreditar examen de selección</option>
+        <option value=4>Ser egresado de la UTM</option>
+        <option value=5>Dominar un idioma extranjero</option>
+        <option value=6>Habilidades socio-comunicativas</option>
+    </select>
+</div>
+<div class="mb-3">
+    <label for="habilidades" class="form-label">Factores para contratar:</label>
+    <select class="form-select" id="9e" name="9e" >
+        <option value=0>Ninguna</option>
+        <option value=1>Competencias Laborales</option>
+        <option value=2>Estar titulado</option>
+        <option value=3>Acreditar examen de selección</option>
+        <option value=4>Ser egresado de la UTM</option>
+        <option value=5>Dominar un idioma extranjero</option>
+        <option value=6>Habilidades socio-comunicativas</option>
+    </select>
+</div>
+<div class="mb-3">
+    <label for="habilidades" class="form-label">Factores para contratar:</label>
+    <select class="form-select" id="9f" name="9f" >
+        <option value=0>Ninguna</option>
+        <option value=1>Competencias Laborales</option>
+        <option value=2>Estar titulado</option>
+        <option value=3>Acreditar examen de selección</option>
+        <option value=4>Ser egresado de la UTM</option>
+        <option value=5>Dominar un idioma extranjero</option>
+        <option value=6>Habilidades socio-comunicativas</option>
+    </select>
+</div>
+
+<div class="mb-3">
+    <label for="puesto_egresado" class="form-label">Otras, ¿Cuales?</label>
+    <input type="text" class="form-control" id="9g" name="9g">
+</div>
+
+<div class="mb-3">
+    <label for="habilidades" class="form-label">Valor de area o campo de estudio:</label>
+    <select class="form-select" id="10a" name="10a" >
+        <option value=1>Indispensable</option>
+        <option value=2>Deseable</option>
+        <option value=3>Poco Indispensable</option>
+        <option value=4>No Indispensable</option>
+    </select>
+</div>
+
+<div class="mb-3">
+    <label for="habilidades" class="form-label">Valor de título profesaional:</label>
+    <select class="form-select" id="10b" name="10b" >
+        <option value=1>Indispensable</option>
+        <option value=2>Deseable</option>
+        <option value=3>Poco Indispensable</option>
+        <option value=4>No Indispensable</option>
+    </select>
+</div>
+<div class="mb-3">
+    <label for="habilidades" class="form-label">Valor de experiencia laboral:</label>
+    <select class="form-select" id="10c" name="10c" >
+        <option value=1>Indispensable</option>
+        <option value=2>Deseable</option>
+        <option value=3>Poco Indispensable</option>
+        <option value=4>No Indispensable</option>
+    </select>
+</div>
+<div class="mb-3">
+    <label for="habilidades" class="form-label">Valor de conocimiento de idiomas extranjeros:</label>
+    <select class="form-select" id="10d" name="10d" >
+        <option value=1>Indispensable</option>
+        <option value=2>Deseable</option>
+        <option value=3>Poco Indispensable</option>
+        <option value=4>No Indispensable</option>
+    </select>
+</div>
+<div class="mb-3">
+    <label for="habilidades" class="form-label">Valor de recomendaciones/referencias:</label>
+    <select class="form-select" id="10e" name="10e" >
+        <option value=1>Indispensable</option>
+        <option value=2>Deseable</option>
+        <option value=3>Poco Indispensable</option>
+        <option value=4>No Indispensable</option>
+    </select>
+</div>
+<div class="mb-3">
+    <label for="habilidades" class="form-label">Valor de imágen de la institución de estudios superiores:</label>
+    <select class="form-select" id="10f" name="10f" >
+        <option value=1>Indispensable</option>
+        <option value=2>Deseable</option>
+        <option value=3>Poco Indispensable</option>
+        <option value=4>No Indispensable</option>
+    </select>
+</div>
+
+<div class="mb-3">
+    <label for="opcion" class="form-label">¿Continuaría contratando egresados de la UTM?</label>
+    <select class="form-select" id="11a" name="11a">
+        <option value=1>Si</option>
+        <option value=2>No</option>
+    </select>
+</div>
+<div class="mb-3">
+    <label for="puesto_egresado" class="form-label">En caso de que no, ¿Por qué?</label>
+    <input type="text" class="form-control" id="11b" name="11b"  >
+</div>
+
+<div class="mb-3">
+    <label for="puesto_egresado" class="form-label">recomendaciones para mejorar la formación Profesional</label>
+    <input type="text" class="form-control" id="12" name="12"  >
+</div>
+
+                      
+<button type="submit" class="btn btn-primary">Enviar</button>
+</form>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const form = document.getElementById("empleadorForm");
+      if (!form) {
+        console.error("No se encontró el formulario con id 'empleadorForm'");
+        return;
+      }
+      form.addEventListener("submit", async function(event) {
+        event.preventDefault(); // Evita el envío tradicional
+  
+        const formData = new FormData(this);
+        const data = {
+  nombre_empresa: formData.get("nombre_empresa"),
+  nombre_jefe: formData.get("nombre_jefe"),
+  correo: formData.get("correo"),
+  puesto: formData.get("puesto"),
+  telefono: formData.get("telefono"),
+  licenciatura_posgrado: formData.get("licenciatura_posgrado"),
+  puesto_egresado: formData.get("puesto_egresado"),
+  antiguedad: Number(formData.get("antiguedad")),
+  uno: Number(formData.get("conocimientos_egresado")),
+  dosa: Number(formData.get("carencias")),
+  dosb: formData.get("carencias_con"),
+  tresa: Number(formData.get("act_conocimientos")),
+  tresb: formData.get("act_con"),  // Revisa que aquí se corresponda con el nombre del campo en el modelo
+  // Habilidades (suponiendo que son enteros)
+  cuatroa: Number(formData.get("4a")),
+  cuatrob: Number(formData.get("4b")),
+  cuatroc: Number(formData.get("4c")),
+  cuatrod: Number(formData.get("4d")),
+  cuatroe: Number(formData.get("4e")),
+  cuatrof: formData.get("4f"),  // Si es string, déjalo así
+  // Habilidades no demostradas
+  cinco: formData.get("5"),
+  // Áreas de conocimiento
+  seisa: Number(formData.get("6a")),
+  seisb: formData.get("6b"),
+  // Valores o actitudes (si son números)
+  sietea: Number(formData.get("7a")),
+  sieteb: Number(formData.get("7b")),
+  sietec: Number(formData.get("7c")),
+  sieted: Number(formData.get("7d")),
+  sietee: Number(formData.get("7e")),
+  sietef: formData.get("7f"),  // Si es string
+  // Otros campos
+  ocho: formData.get("8"),
+  nuevea: Number(formData.get("9a")),
+  nueveb: Number(formData.get("9b")),
+  nuevec: Number(formData.get("9c")),
+  nueved: Number(formData.get("9d")),
+  nuevee: Number(formData.get("9e")),
+  nuevef: Number(formData.get("9f")),
+  nueveg: formData.get("9g"),
+  dieza: Number(formData.get("10a")),
+  diezb: Number(formData.get("10b")),
+  diezc: Number(formData.get("10c")),
+  diezd: Number(formData.get("10d")),
+  dieze: Number(formData.get("10e")),
+  diezf: Number(formData.get("10f")),
+  oncea: Number(formData.get("11a")),
+  onceb: formData.get("11b"),
+  doce: formData.get("12")
+};
+  
+        try {
+          const response = await fetch("/empleadores", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+          });
+          if (response.ok) {
+            const result = await response.json();
+            console.log(result);
+            alert("Registro enviado correctamente");
+            this.reset();
+          } else {
+            alert("Error al enviar el registro");
+            console.error("Error:", response.statusText);
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          alert("Error al enviar el registro");
+        }
+      });
+    });
+  </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

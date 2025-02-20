@@ -1,0 +1,7 @@
+para la parte de los empleadores, se basó en el formulario de encuesta que tiene la universidad
+se guardan únicamente números en campos de elección para datos estadísticos
+en la db la tabla contiene como nombre del campo la pregunta con numero, por ejemplo uno, dosa, dosb, etc. Es decir, si termina en a,b,c,etc es porque hay diferentes respuestas
+como las preguntas que piden elegir 5 o más.
+para el caaso de donde se guardan numeros, dependiendo de la pregunta guarda un numero:
+las de si, no se guarda 1 si 2 no
+para las demás como son por inciso, cada inciso es un numero, a=1, b=2, etc etc
